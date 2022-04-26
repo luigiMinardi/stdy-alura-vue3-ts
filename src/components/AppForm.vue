@@ -9,31 +9,12 @@
         <input
           type="text"
           class="input"
-          placeholder="Which task you want to start?"
+          placeholder="Which task do you want to start?"
+          v-model="description"
         />
       </div>
       <div class="column">
-        <div
-          class="is-flex is-align-items-center is-justify-content-space-between"
-        >
-          <section>
-            <strong>
-              {{ timePassed }}
-            </strong>
-          </section>
-          <button class="button" @click="startCounter">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>play</span>
-          </button>
-          <button class="button" @click="endCounter">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span>stop</span>
-          </button>
-        </div>
+        <AppTimer @whenTimerEnds="endTask" />
       </div>
     </div>
   </div>
@@ -41,28 +22,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AppTimer from "./AppTimer.vue";
 
 export default defineComponent({
   name: "AppForm",
+  components: { AppTimer },
   data() {
     return {
-      timeInSecconds: 0,
-      chronometer: 0
+      description: "",
     };
   },
-  computed: {
-    timePassed(): string {
-      return new Date(this.timeInSecconds * 1000).toISOString().substr(11, 8);
-    },
-  },
   methods: {
-    startCounter() {
-      this.chronometer = setInterval(() => {
-        this.timeInSecconds += 1;
-      }, 1000);
-    },
-    endCounter() {
-      clearInterval(this.chronometer)
+    endTask(timeInSecconds: number): void {
+      console.log(this.description, timeInSecconds);
+      this.description = "";
     },
   },
 });
