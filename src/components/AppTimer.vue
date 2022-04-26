@@ -1,35 +1,28 @@
 <template>
   <div class="is-flex is-align-items-center is-justify-content-space-between">
     <AppChronometer :timeInSecconds="timeInSecconds" />
-    <button
-      class="button"
-      @click="startCounter"
+    <AppButton
+      icon="fas fa-play"
+      text="play"
+      @isClicked="startCounter"
       :disabled="chronometerIsPlaying"
-    >
-      <span class="icon">
-        <i class="fas fa-play"></i>
-      </span>
-      <span>play</span>
-    </button>
-    <button
-      class="button"
-      @click="endCounter"
+    />
+    <AppButton
+      icon="fas fa-stop"
+      text="stop"
+      @isClicked="endCounter"
       :disabled="!chronometerIsPlaying"
-    >
-      <span class="icon">
-        <i class="fas fa-stop"></i>
-      </span>
-      <span>stop</span>
-    </button>
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AppButton from "./AppButton.vue";
 import AppChronometer from "./AppChronometer.vue";
 
 export default defineComponent({
-  components: { AppChronometer },
+  components: { AppChronometer, AppButton },
   name: "AppTimer",
   data() {
     return {
@@ -38,7 +31,7 @@ export default defineComponent({
       chronometerIsPlaying: false,
     };
   },
-  emits: ['whenTimerEnds'],
+  emits: ["whenTimerEnds"],
   methods: {
     startCounter() {
       this.chronometerIsPlaying = true;
@@ -49,8 +42,8 @@ export default defineComponent({
     endCounter() {
       this.chronometerIsPlaying = false;
       clearInterval(this.chronometer);
-      this.$emit('whenTimerEnds', this.timeInSecconds)
-      this.timeInSecconds = 0
+      this.$emit("whenTimerEnds", this.timeInSecconds);
+      this.timeInSecconds = 0;
     },
   },
 });

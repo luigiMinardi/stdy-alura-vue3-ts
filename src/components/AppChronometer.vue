@@ -14,8 +14,8 @@ export default defineComponent({
   props: {
     timeInSecconds: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     timePassed(): string {
