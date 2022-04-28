@@ -1,6 +1,6 @@
 <template>
   <section>
-    <strong>
+    <strong class="display" :style="styles">
       {{ timePassed }}
     </strong>
   </section>
@@ -11,6 +11,14 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "AppChronometer",
+  data() {
+    return {
+      styles: {
+        color: '#000',
+        'text-shadow': '1px 1px 1px #fff',
+      }
+    }
+  },
   props: {
     timeInSecconds: {
       type: Number,

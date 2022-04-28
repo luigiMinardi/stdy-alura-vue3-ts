@@ -1,17 +1,8 @@
 <template>
-  <div class="box">
+  <div class="box form">
     <div class="columns">
-      <div
-        class="column is-8"
-        role="form"
-        aria-label="Form to create a new task"
-      >
-        <input
-          type="text"
-          class="input"
-          placeholder="Which task do you want to start?"
-          v-model="description"
-        />
+      <div class="column is-8" role="form" aria-label="Form to create a new task">
+        <input type="text" class="input" placeholder="Which task do you want to start?" v-model="description" />
       </div>
       <div class="column">
         <AppTimer @whenTimerEnds="endTask" />
@@ -35,7 +26,7 @@ export default defineComponent({
   },
   methods: {
     endTask(timeInSecconds: number): void {
-      this.$emit('whenSavingTask',{
+      this.$emit('whenSavingTask', {
         timeInSecconds: timeInSecconds,
         description: this.description
       })
@@ -44,3 +35,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.form {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+</style>

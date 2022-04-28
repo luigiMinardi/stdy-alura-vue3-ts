@@ -1,9 +1,9 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{ 'dark-mode': darkThemeActive }">
     <div class="column is-one-quarter">
-      <SideBar />
+      <SideBar @when-changing-theme="changeTheme" />
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter content">
       <AppForm @whenSavingTask="saveTask" />
       <div class="list">
         <AppTask v-for="(task, index) in tasks" :key="index" :task="task" />
@@ -34,6 +34,7 @@ export default defineComponent({
   data() { // data() is for return the state of the component, very simmilar to useState() from React
     return {
       tasks: [] as ITask[],
+      darkThemeActive: false
     };
   },
   computed: {
@@ -44,6 +45,9 @@ export default defineComponent({
   methods: {
     saveTask(task: ITask) {
       this.tasks.push(task)
+    },
+    changeTheme(darkThemeActive: boolean) {
+      this.darkThemeActive = darkThemeActive
     }
   }
 });
@@ -52,5 +56,19 @@ export default defineComponent({
 <style>
 .list {
   padding: 1.25rem;
+}
+
+main {
+  --bg-primary: #fff;
+  --text-primary: #000;
+}
+
+main.dark-mode {
+  --bg-primary: #2b2d42;
+  --text-primary: #ddd;
+}
+
+.content {
+  background-color: var(--bg-primary);
 }
 </style>
