@@ -17,7 +17,7 @@ export default defineComponent({
       default: 0,
     },
   },
-  computed: {
+  computed: { // look the state and update when state changes, very similar to 'useEffect'
     timePassed(): string {
       return new Date(this.timeInSecconds * 1000).toISOString().substr(11, 8);
     },

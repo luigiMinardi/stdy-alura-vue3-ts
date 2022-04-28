@@ -26,6 +26,7 @@ import AppTimer from "./AppTimer.vue";
 
 export default defineComponent({
   name: "AppForm",
+  emits: ['whenSavingTask'],
   components: { AppTimer },
   data() {
     return {
@@ -34,7 +35,10 @@ export default defineComponent({
   },
   methods: {
     endTask(timeInSecconds: number): void {
-      console.log(this.description, timeInSecconds);
+      this.$emit('whenSavingTask',{
+        timeInSecconds: timeInSecconds,
+        description: this.description
+      })
       this.description = "";
     },
   },
