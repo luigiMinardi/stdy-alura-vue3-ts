@@ -40,7 +40,8 @@
 </template>
 
 <script lang="ts">
-import IProject from "@/interfaces/IProject";
+import { useStore } from "@/store";
+import { computed } from "@vue/reactivity";
 import { defineComponent } from "vue"
 
 export default defineComponent({
@@ -48,17 +49,24 @@ export default defineComponent({
   data() {
     return {
       nameOfTheProject: "",
-      projects: [] as IProject[]
     };
   },
   methods: {
     save() {
-      const project: IProject = {
-        id: new Date().toISOString(),
-        name: this.nameOfTheProject
-      }
-      this.projects.push(project);
+      // const project: IProject = {
+      //   id: new Date().toISOString(),
+      //   name: this.nameOfTheProject
+      // }
+      // this.projects.push(project);
+      this.store.commit('ADD_PROJECT', this.nameOfTheProject)
       this.nameOfTheProject = "";
+    }
+  },
+  setup() {
+    const store = useStore();
+    return {
+      store,
+      projects: computed(() => store.state.projects)
     }
   }
 })
