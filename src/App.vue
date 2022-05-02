@@ -4,6 +4,7 @@
       <SideBar @when-changing-theme="changeTheme" />
     </div>
     <div class="column is-three-quarter content">
+      <AppNotifications></AppNotifications>
       <router-view></router-view>
     </div>
   </main>
@@ -12,12 +13,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import SideBar from "./components/SideBar.vue";
+import AppNotifications from "./components/AppNotifications.vue";
 
 export default defineComponent({
   name: "App", // name of the component
   components: {
     SideBar,
-  },
+    AppNotifications
+},
   data() { // data() is for return the state of the component, very simmilar to useState() from React
     return {
       darkThemeActive: false

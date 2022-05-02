@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts">
+import { TypeNotification } from "@/interfaces/INotification";
 import { useStore } from "@/store";
-import { EDIT_PROJECT, ADD_PROJECT } from "@/store/mutations";
+import { EDIT_PROJECT, ADD_PROJECT, NOTIFY } from "@/store/mutations";
 import { defineComponent } from "vue"
 
 export default defineComponent({
@@ -50,6 +51,11 @@ export default defineComponent({
         this.store.commit(ADD_PROJECT, this.nameOfTheProject)
       }
       this.nameOfTheProject = "";
+      this.store.commit(NOTIFY, {
+        title: 'New project was saved',
+        text: 'Nice! Your project is ready to start.',
+        type: TypeNotification.SUCESS
+      })
       this.$router.push('/projects')
     }
   },
