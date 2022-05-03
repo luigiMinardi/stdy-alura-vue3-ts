@@ -17,10 +17,12 @@
 </template>
 
 <script lang="ts">
-import { TypeNotification } from "@/interfaces/INotification";
+import { NotificationType } from "@/interfaces/INotification";
+// import { NotifyMixin } from "@/mixins/notify";
 import { useStore } from "@/store";
-import { EDIT_PROJECT, ADD_PROJECT, NOTIFY } from "@/store/mutations";
+import { EDIT_PROJECT, ADD_PROJECT } from "@/store/mutations";
 import { defineComponent } from "vue"
+import useNotificator from '@/hooks/notificator';
 
 export default defineComponent({
   name: 'ViewForm',
@@ -34,6 +36,7 @@ export default defineComponent({
       type: String
     }
   },
+  // mixins: [NotifyMixin],
   mounted() {
     if (this.id) {
       const project = this.store.state.projects.find(project => project.id === this.id)
@@ -51,18 +54,16 @@ export default defineComponent({
         this.store.commit(ADD_PROJECT, this.nameOfTheProject)
       }
       this.nameOfTheProject = "";
-      this.store.commit(NOTIFY, {
-        title: 'New project was saved',
-        text: 'Nice! Your project is ready to start.',
-        type: TypeNotification.SUCESS
-      })
+      this.notify(NotificationType.SUCESS, 'Nice!', 'The project was added without problems.')
       this.$router.push('/projects')
-    }
+    },
   },
   setup() {
     const store = useStore();
+    const { notify } = useNotificator()
     return {
       store,
+      notify
     }
   }
 })

@@ -2,7 +2,10 @@
   <AppBox>
     <div class="columns">
       <!-- Using || ("or" operator) to set default value-->
-      <div class="column is-7">{{ task.description || 'Default Task' }}</div>
+      <div class="column is-4">{{ task.description || 'Default Task' }}</div>
+      <div class="column is-3">
+        {{ task.project?.name || 'N/A' }}
+      </div>
       <div class="column">
         <AppChronometer :timeInSecconds="task.timeInSecconds" />
       </div>

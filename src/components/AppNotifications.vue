@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { TypeNotification } from "@/interfaces/INotification";
+import { NotificationType } from "@/interfaces/INotification";
 import { useStore } from "@/store";
 import { computed } from "@vue/reactivity";
 import { defineComponent } from "vue";
@@ -22,9 +22,9 @@ export default defineComponent({
   data () {
     return {
       context: {
-        [TypeNotification.SUCESS]: "is-success",
-        [TypeNotification.ATTENTION]: "is-warning",
-        [TypeNotification.FAIL]: "is-danger",
+        [NotificationType.SUCESS]: "is-success",
+        [NotificationType.ATTENTION]: "is-warning",
+        [NotificationType.FAIL]: "is-danger",
       }
     }
   },
