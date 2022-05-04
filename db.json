@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Alura Tracker 3.0"
+    },
+    {
+      "name": "Testing 2",
+      "id": 3
+    },
+    {
+      "name": "Testing 3",
+      "id": 4
+    }
+  ]
+}

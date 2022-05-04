@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { DELETE_PROJECT } from "@/store/mutations";
+import { DESTROY_PROJECT, GET_PROJECTS } from "@/store/actions";
 import { computed } from "@vue/reactivity";
 import { defineComponent } from "vue"
 
@@ -50,11 +50,12 @@ export default defineComponent({
   name: 'ViewList',
   methods: {
     destroy (id: string) {
-      this.store.commit(DELETE_PROJECT, id)
+      this.store.dispatch(DESTROY_PROJECT, id)
     }
   },
   setup() {
     const store = useStore();
+    store.dispatch(GET_PROJECTS)
     return {
       projects: computed(() => store.state.projects),
       store

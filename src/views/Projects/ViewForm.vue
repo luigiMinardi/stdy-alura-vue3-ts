@@ -20,9 +20,9 @@
 import { NotificationType } from "@/interfaces/INotification";
 // import { NotifyMixin } from "@/mixins/notify";
 import { useStore } from "@/store";
-import { EDIT_PROJECT, ADD_PROJECT } from "@/store/mutations";
 import { defineComponent } from "vue"
 import useNotificator from '@/hooks/notificator';
+import { CHANGE_PROJECT, CREATE_PROJECT } from "@/store/actions";
 
 export default defineComponent({
   name: 'ViewForm',
@@ -39,24 +39,29 @@ export default defineComponent({
   // mixins: [NotifyMixin],
   mounted() {
     if (this.id) {
-      const project = this.store.state.projects.find(project => project.id === this.id)
+      console.log(this.store.state.projects)
+      const project = this.store.state.projects.find(project => project.id == this.id)
       this.nameOfTheProject = project?.name || ""
     }
   },
   methods: {
     save() {
       if (this.id) {
-        this.store.commit(EDIT_PROJECT, {
+        this.store.dispatch(CHANGE_PROJECT, {
           id: this.id,
           name: this.nameOfTheProject
-        })
+        }).then(() => this.success())
       } else {
-        this.store.commit(ADD_PROJECT, this.nameOfTheProject)
+        this.store
+          .dispatch(CREATE_PROJECT, this.nameOfTheProject)
+          .then(() => this.success())
       }
+    },
+    success() {
       this.nameOfTheProject = "";
       this.notify(NotificationType.SUCESS, 'Nice!', 'The project was added without problems.')
       this.$router.push('/projects')
-    },
+    }
   },
   setup() {
     const store = useStore();

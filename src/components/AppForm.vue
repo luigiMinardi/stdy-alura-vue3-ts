@@ -43,7 +43,7 @@ export default defineComponent({
       this.$emit('whenSavingTask', {
         timeInSecconds: timeInSecconds,
         description: this.description,
-        project: this.projects.find(project => project.id === this.idProject)
+        project: this.projects.find(project => project.id == this.idProject)
       })
       this.description = "";
     },

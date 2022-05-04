@@ -29,7 +29,7 @@ export default defineComponent({
   },
   computed: {
     listIsEmpty(): boolean {
-      return this.tasks.length === 0
+      return this.tasks.length == 0
     },
   },
   methods: {
