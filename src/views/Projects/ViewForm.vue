@@ -39,8 +39,7 @@ export default defineComponent({
   // mixins: [NotifyMixin],
   mounted() {
     if (this.id) {
-      console.log(this.store.state.projects)
-      const project = this.store.state.projects.find(project => project.id == this.id)
+      const project = this.store.state.project.projects.find(project => project.id == this.id)
       this.nameOfTheProject = project?.name || ""
     }
   },

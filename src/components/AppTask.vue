@@ -1,6 +1,6 @@
 <template>
   <AppBox>
-    <div class="columns">
+    <div class="columns clickable" @click="taskClicked">
       <!-- Using || ("or" operator) to set default value-->
       <div class="column is-4">{{ task.description || 'Default Task' }}</div>
       <div class="column is-3">
@@ -21,6 +21,7 @@ import AppBox from "./AppBox.vue";
 
 export default defineComponent({
   name: "AppTask",
+  emits: ['whenTaskClicked'],
   components: { AppChronometer, AppBox },
   props: {
     task: {
@@ -28,5 +29,16 @@ export default defineComponent({
       required: true
     },
   },
+  methods: {
+    taskClicked(): void {
+      this.$emit('whenTaskClicked', this.task)
+    }
+  }
 });
 </script>
+
+<style scoped>
+.clickable {
+  cursor: pointer;
+}
+</style>

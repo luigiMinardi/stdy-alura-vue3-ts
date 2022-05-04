@@ -2,3 +2,7 @@ export const GET_PROJECTS = "GET_PROJECTS"
 export const CREATE_PROJECT = "CREATE_PROJECT"
 export const CHANGE_PROJECT = "CHANGE_PROJECT"
 export const DESTROY_PROJECT = "DESTROY_PROJECT"
+
+export const GET_TASKS = "GET_TASKS"
+export const CREATE_TASK = "CREATE_TASK"
+export const CHANGE_TASK = "CHANGE_TASK"

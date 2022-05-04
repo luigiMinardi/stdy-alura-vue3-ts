@@ -12,5 +12,57 @@
       "name": "Testing 3",
       "id": 4
     }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "timeInSecconds": 120,
+      "description": "Anything",
+      "project": {
+        "id": 1,
+        "name": "Alura Tracker 3.0"
+      }
+    },
+    {
+      "timeInSecconds": 5,
+      "description": "Test",
+      "id": 2
+    },
+    {
+      "timeInSecconds": 1,
+      "description": "bruh",
+      "project": {
+        "id": 1,
+        "name": "Alura Tracker 3.0"
+      },
+      "id": 3
+    },
+    {
+      "timeInSecconds": 3,
+      "description": "any",
+      "project": {
+        "name": "Testing 3",
+        "id": 4
+      },
+      "id": 4
+    },
+    {
+      "timeInSecconds": 1,
+      "description": "Hello world!",
+      "project": {
+        "name": "Testing 2",
+        "id": 3
+      },
+      "id": 5
+    },
+    {
+      "timeInSecconds": 8,
+      "description": "Studying projects",
+      "project": {
+        "id": 1,
+        "name": "Alura Tracker 3.0"
+      },
+      "id": 6
+    }
   ]
 }

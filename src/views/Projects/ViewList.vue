@@ -49,7 +49,7 @@ import { defineComponent } from "vue"
 export default defineComponent({
   name: 'ViewList',
   methods: {
-    destroy (id: string) {
+    destroy(id: string) {
       this.store.dispatch(DESTROY_PROJECT, id)
     }
   },
@@ -57,7 +57,7 @@ export default defineComponent({
     const store = useStore();
     store.dispatch(GET_PROJECTS)
     return {
-      projects: computed(() => store.state.projects),
+      projects: computed(() => store.state.project.projects),
       store
     }
   }
