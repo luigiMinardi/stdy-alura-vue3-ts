@@ -20,54 +20,68 @@
 import { NotificationType } from "@/interfaces/INotification";
 // import { NotifyMixin } from "@/mixins/notify";
 import { useStore } from "@/store";
-import { defineComponent } from "vue"
+import { defineComponent, ref } from "vue"
 import useNotificator from '@/hooks/notificator';
 import { CHANGE_PROJECT, CREATE_PROJECT } from "@/store/actions";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: 'ViewForm',
-  data() {
-    return {
-      nameOfTheProject: "",
-    };
-  },
+  // data() {
+  //   return {
+  //     nameOfTheProject: "",
+  //   };
+  // },
   props: {
     id: {
       type: String
     }
   },
   // mixins: [NotifyMixin],
-  mounted() {
-    if (this.id) {
-      const project = this.store.state.project.projects.find(project => project.id == this.id)
-      this.nameOfTheProject = project?.name || ""
-    }
-  },
-  methods: {
-    save() {
-      if (this.id) {
-        this.store.dispatch(CHANGE_PROJECT, {
-          id: this.id,
-          name: this.nameOfTheProject
-        }).then(() => this.success())
-      } else {
-        this.store
-          .dispatch(CREATE_PROJECT, this.nameOfTheProject)
-          .then(() => this.success())
-      }
-    },
-    success() {
-      this.nameOfTheProject = "";
-      this.notify(NotificationType.SUCESS, 'Nice!', 'The project was added without problems.')
-      this.$router.push('/projects')
-    }
-  },
-  setup() {
+  // mounted() {
+  //   if (this.id) {
+  //     const project = this.store.state.project.projects.find(project => project.id == this.id)
+  //     this.nameOfTheProject = project?.name || ""
+  //   }
+  // },
+  // methods: {
+  //   save() and success() where here.
+  // },
+  setup(props) {
+    const router = useRouter();
     const store = useStore();
-    const { notify } = useNotificator()
+    const { notify } = useNotificator();
+    const nameOfTheProject = ref("");
+
+    if (props.id) {
+      const project = store.state.project.projects.find(project => project.id == props.id);
+      nameOfTheProject.value = project?.name || "";
+    }
+
+    const success = () => {
+      nameOfTheProject.value = "";
+      notify(NotificationType.SUCESS, 'Nice!', 'The project was added without problems.');
+      router.push('/projects');
+    }
+
+    const save = () => {
+      if (props.id) {
+        store.dispatch(CHANGE_PROJECT, {
+          id: props.id,
+          name: nameOfTheProject.value
+        }).then(() => success());
+      } else {
+        store
+          .dispatch(CREATE_PROJECT, nameOfTheProject.value)
+          .then(() => success());
+      }
+    }
+
     return {
-      store,
-      notify
+      // store,
+      // notify,
+      nameOfTheProject,
+      save
     }
   }
 })

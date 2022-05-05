@@ -23,8 +23,7 @@
 
 <script lang="ts">
 import { key } from "@/store";
-import { computed } from "@vue/reactivity";
-import { defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import AppTimer from "./AppTimer.vue";
 
@@ -32,26 +31,27 @@ export default defineComponent({
   name: "AppForm",
   emits: ['whenSavingTask'],
   components: { AppTimer },
-  data() {
-    return {
-      description: '',
-      idProject: ''
-    };
-  },
-  methods: {
-    endTask(timeInSecconds: number): void {
-      this.$emit('whenSavingTask', {
+  setup(props, { emit }) {
+    const store = useStore(key);
+    const description = ref("");
+    const idProject = ref("");
+
+    const projects = computed(() => store.state.project.projects);
+
+    const endTask = (timeInSecconds: number): void => {
+      emit('whenSavingTask', {
         timeInSecconds: timeInSecconds,
-        description: this.description,
-        project: this.projects.find(project => project.id == this.idProject)
-      })
-      this.description = "";
-    },
-  },
-  setup() {
-    const store = useStore(key)
+        description: description.value,
+        project: projects.value.find(project => project.id == idProject.value)
+      });
+      description.value = "";
+    }
+
     return {
-      projects: computed(() => store.state.project.projects)
+      projects,
+      description,
+      idProject,
+      endTask
     }
   },
 });
